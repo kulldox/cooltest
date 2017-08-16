@@ -1,0 +1,47 @@
+# TC\_demo\_01\_RED: Check the grep version is correct
+
+## Environment:
+### Sitename
+```
+Redmond
+```
+### OS
+```
+uname -a
+Linux nisred01 3.0.101-0.47.52-default #1 SMP Thu Mar 26 10:55:49 UTC 2015 (0e3c7c8) x86_64 x86_64 x86_64 GNU/Linux
+
+```
+## Prerequisites:
+### test prerequisites demo
+```
+you can add here various system checks
+date
+Wed Aug 16 00:51:36 PDT 2017
+
+```
+## Execution:
+### Check the 'grep' version is '2.7'
+```
+grep -V
+grep (GNU grep) 2.7
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Mike Haertel and others, see <http://git.sv.gnu.org/cgit/grep.git/tree/AUTHORS>.
+
+```
+### Application logs:
+#### Application log demo
+```
+grep -V
+grep (GNU grep) 2.7
+Copyright (C) 2010 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Mike Haertel and others, see <http://git.sv.gnu.org/cgit/grep.git/tree/AUTHORS>.
+
+```

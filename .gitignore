@@ -1,0 +1,13 @@
+scripts/
+conf/*
+!conf/main.rb
+tests/*
+!tests/TC_demo.rb
+log/*
+lib/*
+!lib/config/*
+!lib/cooltest/*
+lib/cooltest/nap*
+!lib/logging/*
+!lib/javalib/*
+lib/javalib/myblowfish.bat
