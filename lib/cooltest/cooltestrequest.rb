@@ -222,7 +222,8 @@ class CooltestRequest
 			{:port => ssh_port,
 			:password => ssh_p,
 			# :verbose => :debug,
-			:auth_methods => ['publickey','hostbased','password','keyboard-interactive'],
+			# :auth_methods => ['password','publickey','hostbased','keyboard-interactive'],
+			:auth_methods => ['password'],
 			:forward_agent => true}
 		) do|ssh| 
 			out = ''

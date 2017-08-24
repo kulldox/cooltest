@@ -15,7 +15,7 @@ $cfg = {}
 # one of: DEBUG < INFO < WARN < ERROR < FATAL < UNKNOWN
 $cfg['logLevel'] = Logger::DEBUG
 # one of: [:info, :debug, :warn, :error, :fatal]
-$cfg['soapLogLevel'] = :error
+$cfg['soapLogLevel'] = :debug
 $cfg['logDir'] = "#{APPDIR}/log/"
 $cfg['logFile'] = $stdout
 # uncomment this line, if you want the execution output to be saved in a file

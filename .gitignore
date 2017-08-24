@@ -1,6 +1,8 @@
 scripts/
 conf/*
 !conf/main.rb
+dtr/*
+!dtr/TC_demo/*
 tests/*
 !tests/TC_demo.rb
 log/*
@@ -11,3 +13,5 @@ lib/cooltest/nap*
 !lib/logging/*
 !lib/javalib/*
 lib/javalib/myblowfish.bat
+mct_*
+test_TC_*
