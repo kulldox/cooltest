@@ -100,6 +100,6 @@ class CoolTest
 		Dir.mkdir(iFolder) unless Dir.exist?(iFolder)
 		File.open(iFolder+@id+".txt", 'w') { |file| file.write(@dtr.to_s) }
 		logger.info "DTR saved into "+iFolder+@id+".txt"
-		logger.close
+		# logger.close
 	end
 end

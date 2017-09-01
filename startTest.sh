@@ -26,6 +26,6 @@ fi;
 
 echo "$(date +'%Y-%m-%d %H:%M:%S') INFO: Starting '${iTestCase}' from '${ifile}'."
 
-ruby tests/${iTestClass} --name ${iTestCase} 2>&1 | tee -a log/${iTestCase}_$(date +'%Y-%m-%d-%H%M').txt
+ruby  tests/${iTestClass} --name ${iTestCase} 2>&1 | tee -a log/${iTestClass}_${iTestCase}_$(date +'%Y-%m-%d-%H%M').txt
 
 echo "$(date +'%Y-%m-%d %H:%M:%S') INFO: Done '${iTestCase}' from '${ifile}'."

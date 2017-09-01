@@ -27,5 +27,7 @@ $cfg['logFileDateFormat'] = '%Y-%m-%d %H:%M:%S.%L%z'
 
 $cfg['dtrDir'] = "#{APPDIR}/dtr/"
 
+$sshConnnections ||= Thread.current[:user_connections] ||= {}
+
 # custom configs
 require "#{APPDIR}/conf/napGeneral.rb"

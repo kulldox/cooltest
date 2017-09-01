@@ -19,4 +19,8 @@ gem 'crypt19-rb'
 # gem 'concurrent-ruby', '~> 1.0', '>= 1.0.2'
 gem 'dnsruby', '~> 1.59', '>= 1.59.3'
 gem 'diameter', '~> 0.3.1'
+
 # gem 'fileutils'
+group :test do
+  gem "byebug"
+end

@@ -90,7 +90,7 @@ end
 # 
 class CooltestRequest
 	include Logging
-	$k = Config.new();
+	$k ||= Config.new();
 	def initialize(options)
 		@options = options
 		@soapClientOptions = {
@@ -216,25 +216,40 @@ class CooltestRequest
 	def sshcmd(ssh_h, ssh_u, ssh_p, cmd, onlyOutput = false, options = {})
 		ssh_port = options[:port] ? options[:port] : '22'
 		logger.debug "SSH (#{ssh_u}@#{ssh_h}:#{ssh_port}): " + cmd
-		Net::SSH.start(
-			ssh_h,
-			ssh_u,
-			{:port => ssh_port,
-			:password => ssh_p,
-			# :verbose => :debug,
-			# :auth_methods => ['password','publickey','hostbased','keyboard-interactive'],
-			:auth_methods => ['password'],
-			:forward_agent => true}
-		) do|ssh| 
-			out = ''
-			if onlyOutput == true
-				out = ssh.exec!(cmd)
-			else
-				out = cmd+"\n"+ssh.exec!(cmd)
-			end
-			logger.debug out
-			return out
+		logger.debug "SSH number of SSH connections in $sshConnnections pool: #{$sshConnnections.size}"
+		Thread.current[:user_connections] ||= {}
+		connectionName = ssh_h+"-"+ssh_port+"-"+ssh_u
+		unless Thread.current[:user_connections].key?(connectionName)
+			# p "SSH Create new SSH connection (#{ssh_u}@#{ssh_h}:#{ssh_port}) for command: " + cmd + ""
+			logger.debug "SSH Create new SSH connection (#{ssh_u}@#{ssh_h}:#{ssh_port}) for command: " + cmd + ""
+			Thread.current[:user_connections][connectionName] = Net::SSH.start(
+				ssh_h,
+				ssh_u,
+				{:port => ssh_port,
+				:password => ssh_p,
+				# :verbose => :debug,
+				:max_pkt_size => 0x10000,
+				:paranoid => false,
+				:keepalive => true,
+				:config => false,
+				:compression => true,
+				# :auth_methods => ['password','publickey','hostbased','keyboard-interactive'],
+				:auth_methods => ['password'],
+				:forward_agent => true}
+			)
+		else
+			# p "SSH Using existing SSH connection (#{ssh_u}@#{ssh_h}:#{ssh_port}) for command: " + cmd + ""
+			logger.debug "SSH Using existing SSH connection (#{ssh_u}@#{ssh_h}:#{ssh_port}) for command: " + cmd + ""
 		end
+
+
+		if onlyOutput == true
+			out = Thread.current[:user_connections][connectionName].exec!(cmd)
+		else
+			out = cmd+"\n"+Thread.current[:user_connections][connectionName].exec!(cmd)
+		end
+		logger.debug out
+		out
 	end
 
 	##

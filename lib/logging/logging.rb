@@ -34,22 +34,24 @@ module Logging
         iLogFile = $cfg['logFile']
         begin
           
-        if FileTest.exist?("#{iLogFile}")
-          if File.ctime(iLogFile) <= previous_period_end(Time.now) or File.mtime(iLogFile) <= previous_period_end(Time.now)
-            postfix = previous_period_end(Time.now).strftime("%Y%m%d") # YYYYMMDD
+          if FileTest.exist?("#{iLogFile}")
+            if File.ctime(iLogFile) <= previous_period_end(Time.now) or File.mtime(iLogFile) <= previous_period_end(Time.now)
+              postfix = previous_period_end(Time.now).strftime("%Y%m%d") # YYYYMMDD
 
-            File.rename(iLogFile, iLogFile+"."+postfix)
+              File.rename(iLogFile, iLogFile+"."+postfix)
+            end
           end
-        end
         rescue Exception => e
-            p "=========================================="
-            p "Huston, we've got a problem"
-            p "=========================================="
-            p e
-            p "=========================================="
-            exit
+              p "=========================================="
+              p "Huston, we've got a problem"
+              p "=========================================="
+              p e
+              p "=========================================="
+              exit
         end
-        logger ||= Logger.new(File.new(iLogFile,'a'), $cfg['logFileAging'])
+        iLogFile = File.open($cfg['logFile'], 'a+');
+        iLogFile.sync = false
+        logger ||= Logger.new(iLogFile, $cfg['logFileAging'])
         logger.level = $cfg['logLevel']
         logger.datetime_format = $cfg['logFileDateFormat']
         logger.formatter = proc { |severity, datetime, progname, msg|
